@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+    
+
+    <style>
+      h2 {
+        text-align: center;
+        -webkit-margin-start: 45px;
+      }
+    </style>
+
+    
+<h2>Size and Flight Delay Performance of 5 Largest U.S. Domestic Carriers from 2003 to 2016</h2>
+  <div id="area1"></div>
+  <div id="area2"></div>
+
+  
+
+    <script type="text/javascript">
+    
+
+      function draw(data) {
+      
+      /*
+        D3.js setup code
+      */
+
+          "use strict";
+          
+          var margin = 80,
+              width = 800 - margin,
+              height = 400 - margin;
+
+          //create a function to format the common text 
+          function addText(svg, chart, text1) {
+            svg.append("text")
+           .attr("x", chart._xPixels() + chart._widthPixels() / 2)
+           .attr("y", chart._yPixels() - 20)
+           .style("text-anchor", "middle")
+           .style("font-family", "sans-serif")
+           .style("font-weight", "bold")
+           .text(text1);
+
+          };  
+          
+      /*
+        Dimple.js Chart construction code
+      */
+                    
+          //create a function to add the legend to the display
+          function addSeries( series, chart) {
+            chart.addSeries("carrier_name", dimple.plot.line);
+            chart.addSeries("carrier_name", dimple.plot.scatter);
+            chart.assignColor("Southwest Airlines Co.", "darkblue","darkblue", 1);
+            chart.assignColor("SkyWest Airlines Inc.", "dodgerblue","dodgerblue",0.55);
+            chart.assignColor("Delta Air Lines Inc.", "orange","orange",0.55);
+            chart.assignColor("ExpressJet Airlines Inc.", "mediumseagreen","mediumseagreen",0.55);
+            chart.assignColor("American Airlines Inc.", "mediumvioletred","mediumvioletred",0.55);
+            chart.addLegend(width * .70, height * .85, width*0.22, 75, 'center');
+          };
+          
+
+          //use area1 for the first plot and center it
+          var svg1 = d3.select("#area1").attr("align","center")
+          .append("svg")
+          .attr("width", width + margin)
+          .attr("height", height + margin)
+          .append('g')
+          .attr('class','chart');
+
+          var chart1 = new dimple.chart(svg1, data);
+          var x = chart1.addTimeAxis("x", "year"); 
+          x.tickFormat = "%Y";
+          x.title = 'Year';
+    
+          var y = chart1.addMeasureAxis("y", "num_flights");
+          y.title = "Number of flights per carrier";
+          addSeries("carrier_name", chart1);
+          addText(svg1, chart1, "Number of flights per carrier");
+          
+          chart1.draw();
+  
+          //use area2 for the second and third plot
+          var svg2 = d3.select("#area2").attr("align","center")
+          .append("svg")
+          .attr("width", width + margin)
+          .attr("height", height + margin)
+          .append('g')
+          .attr('class','chart');
+
+          var chart2 = new dimple.chart(svg2, data);
+          var x = chart2.addTimeAxis("x", "year"); 
+          x.tickFormat = "%Y";
+          x.title = 'Year';
+          var y = chart2.addMeasureAxis("y", "avg_ontime");
+          y.overrideMin = 60
+          y.title = "Percentage of On-Time Flights";
+          addSeries("carrier_name", chart2);
+          addText(svg2, chart2, "Percentage of On-Time Flights");
+          chart2.draw();
+          
+          var svg3 = d3.select("#area2")
+          .append("svg")
+          .attr("width", width + margin)
+          .attr("height", height + margin)
+          .append('g')
+          .attr('class','chart');
+
+          var chart3 = new dimple.chart(svg3, data);
+          var x = chart3.addTimeAxis("x", "year"); 
+          x.tickFormat = "%Y";
+          x.title = 'Year';
+          var y = chart3.addMeasureAxis("y", "avg_carrier_ct");
+          y.title = "Percentage of Delayed Flights due to Carrier";
+          addSeries("carrier_name", chart3);
+          addText(svg3, chart3, "Percentage of Late Flights caused by Carrier");
+          chart3.draw();
+
+        };
+      </script>
+  </head>
+<body>
+  <div class="container">
+    <div class="row">
+      <section id="content" class="col-md-12"></section>
+    </div>
+  </div>
+  <script type="text/javascript">
+  /*
+    Use D3 (not dimple.js) to load the TSV file
+    and pass the contents of it to the draw function
+    */
+  //d3.tsv("airline_delays.csv", draw);
+  
+  d3.csv("summary_airlines.csv", draw);
+  </script>
+</body>
+</html>

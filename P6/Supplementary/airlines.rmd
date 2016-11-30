@@ -1,0 +1,156 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Data Visualization Project: U.S Domestic Airline Carriers 2003 - 2016
+#### Summary
+To investigate and produce a data visualization of the flight performance of
+US airline carriers over the years 2003 to 2016.  The data documented the
+carriers performance in terms of metrics such as number of flights, arrivals per
+airport, delays and flights cancelled.  This information was downloaded from 
+RITA at: http://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp
+
+### Design
+
+**Exploratory Data Analysis**
+
+I downloaded the dataset as a csv file for exploratory data analysis (EDA) in R 
+studio.  I thought originally it would be more interesting to focus on airports
+such as asking the question "which airport has the most flight arrivals?" but
+after looking at the data the information was not so interesting as the busiest
+airports were at obvious geographical hubs such as Hartsfield-Jackson Atlanta 
+and Chicago O'Hara.
+
+I therefore started to look at the actual carriers and ask question such as 
+"Which carrier has the most flights?" and "Which carrier has the least delays?".
+After looking at the dataset there were many carriers in operation (27 in total).
+I realized that to display this information graphically would be difficult so I
+decided to cut down the number of carriers to five.  The five biggest carriers 
+were defined by the summing the number of flights per carrier and taking the 
+five carriers with greatest totals:   
+
+```{r code1,  include=FALSE}
+require(knitr)
+require(markdown)
+library(dplyr)
+library(ggplot2)
+setwd('/home/riched/udacity/nanodegree/P6')
+airlines <- read.csv('airline_delay_causes_best.csv')
+airlines = airlines[is.na(airlines$arr_flights) == 0,]
+str(airlines)
+
+airlines <-rename(airlines, weather_ct = X.weather_ct,arr_delay = X.arr_delay,
+                  carrier_delay=X.carrier_delay, month=X.month)
+str(airlines)
+summary(airlines)
+
+best5 = tail(sort(tapply(airlines$arr_flights, airlines$carrier_name, sum)),n=5)
+best5.carrier_name = labels(best5)
+best5.carrier_name = best5.carrier_name[[1]]
+best5_airlines = airlines[airlines$carrier_name %in% best5.carrier_name  ,]
+best5_airlines$X = NULL
+best5_airlines$carrier_name = factor(best5_airlines$carrier_name)
+levels(best5_airlines$carrier_name)
+
+summary_data = aggregate(best5_airlines[,7:ncol(best5_airlines)],
+                            by = list(best5_airlines$year,best5_airlines$carrier_name),
+                            FUN=sum, na.rm=TRUE)
+summary_data <-rename(summary_data, year = Group.1,carrier_name = Group.2)
+
+summary_data$avg_arr_del15 = 100 * summary_data$arr_del15/summary_data$arr_flights
+summary_data$avg_carrier_ct = 100 * summary_data$carrier_ct/summary_data$arr_flights
+summary_data$avg_ontime = 100 - summary_data$avg_arr_del15
+summary_data$num_flights = summary_data$arr_flights
+```
+
+```{r code2,echo=FALSE}
+levels(best5_airlines$carrier_name)
+```
+
+The dataset was processed to produce another csv file **summary_airline.csv**
+.  After EDA I decided to use the data visualization to
+answer the question "Amongst the bigger carriers is there a relationship between
+carrier size and flight delay times?".  Because of the flexibility of R compared
+to processing the data using dimple, I decided to generate plots first in R to
+get a feel of how they would look using **dimple.js**.  The R code is included
+in the file **airlines.r**.
+
+The first plot shows the actual number of flights per year per 
+carrier over the time period.  Clearly Southwest Airlines has the most flights
+over this period:  
+
+```{r code3, echo=FALSE}
+ggplot(data = summary_data,
+       aes(x = year, y = num_flights)) +
+  geom_line(aes(color = carrier_name))
+```
+
+The second plot shows the percentage of on-time flights per carrier, we can see
+that Delta airlines significantly improved its number of on-time flights.  This
+number is defined as arriving within 15 mins of due arrival time:
+
+```{r code4, echo=FALSE}
+
+ggplot(data = summary_data,
+       aes(x = year, y = avg_ontime)) +
+  geom_line(aes(color = carrier_name))
+```
+
+The final plot shows the actual percentage of late flights caused by the actual 
+carrier as opposed to other delay causes such as weather and security issues.
+We can see that at the beginning of the period Skywest Airlines has much poorer
+performance than the other airlines but improved greatly, to the the extent of
+being the best in this category:
+
+```{r code5, echo=FALSE}
+ggplot(data = summary_data,
+       aes(x = year, y = avg_carrier_ct)) +
+  geom_line(aes(color = carrier_name))
+
+```
+
+**Data Visualisation**
+
+I implemented the visualization using **dimple.js**.  Time was of the essence to
+me,
+so I only used a small amount of **d3.js** code.  I decided to employ three 
+charts similar to the ones I completed in R studio. After the initial 
+visualization I made some changes to the visualization:
+
+* I overlayed a scatter plot to the series lines
+* I added a title for each of the plots
+
+After making these changes to the visualization, I asked three people for 
+feedback:
+
+* 'the figures should be placed with the number of flights per carrier at the
+top on its own line'
+* 'the colors for the plots are too bright make them more subtle'
+* 'the placement of the figures dos not look right'
+
+After reviewing the feedback, I placed the Number of flights per carrier plot
+at the top of the page in the center.  I then placed the remaining two plots in
+the center directly under the first plot.  I researched colors and found some
+colors that i felt to be less bright and more easy on the eye.
+
+The final visualization is available as **airlines_3.html**. From the
+visualization
+it is clear that Southwest Airlines has the most flights but this does not
+translate into delay times.  In the percentage of on time flights Delta Airlines 
+performs best and in the percentage of late flights caused by the actual carrier
+performance amongst the carriers is very similar.  Southwest Airlines does not
+provide better time performance for its flights, there must be other reasons
+it has many more flights than the other carriers.
+
+#### References
+* http://www.color-hex.com/color-names.html
+* http://dimplejs.org/
+* http://stackoverflow.com/
+* https://github.com/d3/d3-3.x-api-reference/blob/master/API-Reference.md
+
+
+
+
