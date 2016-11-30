@@ -1,7 +1,12 @@
 
 ##MODULE 4
 ##Exploratory Data Analysis
-##R, investigate datasets, reshape data frames
+* Use R to perform exploratory data analysis (EDA)
+* Understand the distribution of a variable and to check for anomalies and outliers
+* Quantify and visualize individual variables within a dataset
+* Examine and identify tradeoffs in different types of data visualizations
+* Properly apply relevant techniques for exploring the relationship between any two variables in a data set
+* Reshape data frames and use aesthetics like color and shape to examine relationships among multiple variables
 
 
 
