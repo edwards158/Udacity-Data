@@ -2,11 +2,8 @@
 ##Statistics
 ## Standard deviations, confidence intervals, z-scores, and t-tests
 
-NumPy arrays, pandas DataFrames, and vectorized operations
-
-Use NumPy arrays, pandas series, and vectorized operations to ease the data analysis process
-Use two-dimensional NumPy arrays and pandas DataFrames
-Understand how to group data and to combine data from multiple files
-View the ipynb on github or click link below
-
-http://nbviewer.jupyter.org/github/riched158/Investigate-Dataset/blob/master/Titanic4.html
+* Identify several statistical study methods and describe the positives and negatives of each
+* Describe the variability in a sample or population using the range and standard deviation
+* Convert distributions into the standard normal distribution using the Z-score
+* Apply the concepts of probability and normalization to sample data sets
+* Use confidence intervals to determine how accurately a sample of data represents a broader population
