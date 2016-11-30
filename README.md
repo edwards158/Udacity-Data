@@ -4,10 +4,10 @@ This repository contains project work associated with [Udacity's Data Analyst Na
 
 Projects:
 
-* P0: Titanic Survival Exploration
-* P1: Predicting Boston Housing Prices (Model Evaluation and Validation)
-* P2: Finding Donors for CharityML (Supervised Learning)
-* P3: Creating Customer Segments (Unsupervised Learning)
-* P4: Training a Smartcab to Drive (Reinforcement Learning)
-* P5: Build a Digit Recognition Program (Deep Learning)
-* P6: Capstone Project (TBD)
+* P1: Test a Perceptual Phenomenon
+* P2: Investigate a Dataset
+* P3: Wrangle OpenStreetMap Data
+* P4: Explore and Summarize Data
+* P5: Identify Fraud from Enron Email
+* P6: Make Effective Data Visualization
+* P7: Design an A/B Test
