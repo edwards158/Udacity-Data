@@ -1,5 +1,10 @@
-# Investigate-Dataset
-Investigation of titanic dataset using python
+## MODULE 2
+### Intro to Data Analysis
+### NumPy arrays, pandas DataFrames, and vectorized operations
+
+* Use NumPy arrays, pandas series, and vectorized operations to ease the data analysis process
+* Use two-dimensional NumPy arrays and pandas DataFrames
+* Understand how to group data and to combine data from multiple files
 
 View the ipynb on github or click link below
 
