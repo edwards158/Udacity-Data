@@ -1,6 +1,6 @@
 # Data-Analyst-Udacity-Nanodegree
 
-![alt tag](https://github.com/riched158/Data-Analyst-Udacity-Nanodegree/blob/master/certificate.pdf)
+[Model View Controller](https://github.com/riched158/Data-Analyst-Udacity-Nanodegree/blob/master/certificate.pdf)
 
 This repository contains project work associated with [Udacity's Data Analyst Nanodegree.] (https://www.udacity.com/course/data-analyst-nanodegree--nd002?v=a4)
 
