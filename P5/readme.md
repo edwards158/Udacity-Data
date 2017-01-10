@@ -10,4 +10,4 @@
 
 
 Udacity Data Analyst Nanodegree module Introduction to Machine Learning 
-http://nbviewer.jupyter.org/github/riched158/Machine-Learning/blob/master/poi_id.html
+http://nbviewer.jupyter.org/github/riched158/Data-Analyst-Udacity-Nanodegree/blob/master/P5/poi_id.html
