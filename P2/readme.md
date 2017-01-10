@@ -8,4 +8,4 @@
 
 View the ipynb on github or click link below
 
-http://nbviewer.jupyter.org/github/riched158/Investigate-Dataset/blob/master/Titanic4.html
+http://nbviewer.jupyter.org/github/riched158/Data-Analyst-Udacity-Nanodegree/blob/master/P2/Titanic4.html
