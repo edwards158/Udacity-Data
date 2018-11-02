@@ -4,7 +4,7 @@
 ## Naive Bayes, Support Vector Machines, F1 scores
 
 
-* [Enron Fraud](http://nbviewer.jupyter.org/github/riched158/Data-Analyst-Udacity-Nanodegree/blob/master/P5/poi_id.html)
+* [Enron Fraud Notebook](http://nbviewer.jupyter.org/github/riched158/Data-Analyst-Udacity-Nanodegree/blob/master/P5/poi_id.html)
 
 Udacity Data Analyst Nanodegree module Introduction to Machine Learning 
 * Use Naive Bayes, regression, and k-means clustering algorithms
